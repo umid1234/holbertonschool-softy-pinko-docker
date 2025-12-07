@@ -1,26 +1,23 @@
-# Use latest Ubuntu
 FROM ubuntu:latest
 
-# Update and upgrade
+# Update & install Python + pip
 RUN apt-get update && apt-get upgrade -y
-
-# Install python3 and pip3
 RUN apt-get install -y python3 python3-pip
 
-# Fix EXTERNALLY-MANAGED error if needed
-RUN rm -f /usr/lib/python*/EXTERNALLY-MANAGED || true
+# Fix "externally managed" error
+RUN rm -f /usr/lib/python3.*/EXTERNALLY-MANAGED
 
-# Install flask using pip3
+# Install Flask
 RUN pip3 install flask
 
-# Set working directory
+# Create /app inside the container and go there
 WORKDIR /app
 
-# Copy Flask app
-COPY ./api.py /app/api.py
+# Copy your api.py into the container
+COPY api.py .
 
-# Expose port 5252
+# Expose the port
 EXPOSE 5252
 
-# Default command to start Flask
+# THIS IS THE ONLY COMMAND THAT WORKS 100% OF THE TIME
 CMD ["python3", "api.py"]

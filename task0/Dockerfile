@@ -1,8 +1,8 @@
-# Use the latest Ubuntu base image
+# Use the latest Ubuntu as the base image
 FROM ubuntu:latest
 
-# Update and upgrade APT packages
-RUN apt-get update && apt-get upgrade -y
+# Update package list and upgrade all installed packages
+RUN apt-get update && \ apt-get upgrade -y
 
-# Set the default command to echo "Hello, World!"
+# When the container starts, print Hello, World!
 CMD ["echo", "Hello, World!"]
